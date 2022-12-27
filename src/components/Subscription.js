@@ -1,18 +1,37 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useState, useEffect, useContext } from "react";
+import AuthContext from "../ contexts/auth";
+import { useNavigate } from "react-router-dom";
 
 const Subscription = () => {
+  const { auth } = useContext(AuthContext);
+  const [planos, setPlanos] = useState();
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      .get(
+        "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships",
+        { headers: { Authorization: `Bearer ${auth}` } }
+      )
+      .then((res) => setPlanos(res.data));
+  }, []);
+
+  console.log(planos);
   return (
     <Container>
       <Text> Escolha seu Plano </Text>
-      <Planos>
-        <Vector />
-      </Planos>
-      <Planos>
-        <Vector />
-      </Planos>
-      <Planos>
-        <Vector />
-      </Planos>
+      {planos?.map((plano) => {
+        return (
+          <Planos
+            onClick={() => navigate(`/subscriptions/${plano.id}`)}
+            plano={plano}
+          >
+            <img src={plano.image} />
+            <PriceText>{plano.price}</PriceText>
+          </Planos>
+        );
+      })}
     </Container>
   );
 };
@@ -32,6 +51,10 @@ const Text = styled.p`
   width: 263px;
   border-radius: undefinedpx;
   color: white;
+`;
+
+const PriceText = styled.p`
+  color: #ffffff;
 `;
 
 const Planos = styled.div`
