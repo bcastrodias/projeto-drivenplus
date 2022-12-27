@@ -10,6 +10,9 @@ const Subscription = () => {
       <Planos>
         <Vector />
       </Planos>
+      <Planos>
+        <Vector />
+      </Planos>
     </Container>
   );
 };

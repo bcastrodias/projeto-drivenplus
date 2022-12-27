@@ -4,13 +4,15 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const API =
+  "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships";
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [cpf, setCPF] = useState("");
   const navigate = useNavigate();
-
   const onPressButton = () => {
     axios
       .post(
@@ -55,8 +57,8 @@ const Register = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       ></Input>
-      <Button> CADASTRAR </Button>
-      <Login onClick={onPressButton}> Já possuí uma conta? Entre aqui </Login>
+      <Button onClick={onPressButton}> CADASTRAR </Button>
+      <Login> Já possuí uma conta? Entre aqui </Login>
     </Container>
   );
 };

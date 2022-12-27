@@ -1,17 +1,51 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../ contexts/auth";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { doLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const onPressButton = () => {
+    axios
+      .post(
+        "https://mock-api.driven.com.br/api/v4/driven-plus/auth/login",
+
+        {
+          email,
+          password,
+        }
+      )
+      .then((res) => {
+        doLogin(res.data.token);
+        navigate("/subscription");
+      })
+      .catch(() => alert("Preencha adequadamente"));
+  };
+
   return (
     <Container>
       <Layer
         src={`/home/blackbox/Projetos/driven/projeto-drivenplus/src/img/Layer1.png`}
       ></Layer>
-      <Input placeholder="E-mail"></Input>
-      <Input placeholder="Senha"></Input>
-      <Button>
-        <Link to="/subscription">ENTRAR </Link>
-      </Button>
+      <Input
+        placeholder="E-mail"
+        type="email"
+        name="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      ></Input>
+      <Input
+        placeholder="Senha"
+        name="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      ></Input>
+      <Button onClick={onPressButton}>ENTRAR</Button>
       <Cadastro>
         <Link to="/sign-up"> Não possuí uma conta? Cadastre-se </Link>
       </Cadastro>
