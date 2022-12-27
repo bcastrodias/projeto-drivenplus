@@ -31,7 +31,25 @@ const Plano = () => {
       `Tem certeza que deseja assinar o plano ${plano.name} (R$ ${plano.price})?`
     );
     if (confirmation) {
-      navigate("/home");
+      axios
+        .post(
+          "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions",
+          {
+            membershipId: id,
+            cardName: name,
+            cardNumber: number,
+            securityNumber: cvv,
+            expirationDate: expiryDate,
+          },
+          { headers: { Authorization: `Bearer ${auth}` } }
+        )
+        .then((res) => {
+          localStorage.setItem(
+            "membership",
+            JSON.stringify(res.data.membership)
+          );
+          navigate("/home");
+        });
     }
   };
 

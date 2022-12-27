@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Subscription from "./components/Subscription";
 import { AuthProvider } from "./contexts/auth";
 import Plano from "./components/Plano";
+import Home from "./components/Home";
 
 const App = () => {
   return (
@@ -13,8 +14,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/sign-up" element={<Register />} />
-          <Route path="/subscription" element={<Subscription />} />
+          <Route path="/subscriptions" element={<Subscription />} />
           <Route path="/subscriptions/:id" element={<Plano />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

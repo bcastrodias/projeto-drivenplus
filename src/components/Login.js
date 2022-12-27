@@ -21,8 +21,12 @@ const Login = () => {
         }
       )
       .then((res) => {
-        doLogin(res.data.token);
-        navigate("/subscription");
+        doLogin(res.data);
+        if (res.data.membership) {
+          navigate("/home");
+        } else {
+          navigate("/subscriptions");
+        }
       })
       .catch(() => alert("Preencha adequadamente"));
   };
