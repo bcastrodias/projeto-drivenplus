@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import AuthContext from "../ contexts/auth";
+import AuthContext from "../contexts/auth";
 import { useNavigate } from "react-router-dom";
 
 const Subscription = () => {
@@ -17,7 +17,6 @@ const Subscription = () => {
       .then((res) => setPlanos(res.data));
   }, []);
 
-  console.log(planos);
   return (
     <Container>
       <Text> Escolha seu Plano </Text>
