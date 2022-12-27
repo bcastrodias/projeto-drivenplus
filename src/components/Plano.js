@@ -59,6 +59,10 @@ const Plano = () => {
 
   return (
     <Container>
+      <Voltar
+        onClick={() => navigate("/subscriptions")}
+        src={"/assets/Vector.png"}
+      />
       <img src={plano.image} />
       {plano.name}
       Beneficios
@@ -106,6 +110,12 @@ const Input = styled.input`
   width: 299px;
   border-radius: 8px;
   padding-bottom: 5px;
+`;
+
+const Voltar = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 const SmallInput = styled.input`

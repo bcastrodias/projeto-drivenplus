@@ -2,11 +2,24 @@ import styled from "styled-components";
 import { useContext } from "react";
 import AuthContext from "../contexts/auth";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Home = () => {
-  const { userData } = useContext(AuthContext);
+  const { userData, auth } = useContext(AuthContext);
   const navigate = useNavigate();
   const membership = JSON.parse(localStorage.getItem("membership"));
+  const cancelPlan = () => {
+    axios
+      .delete(
+        "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions",
+        {
+          headers: {
+            Authorization: `Bearer ${auth}`,
+          },
+        }
+      )
+      .then(() => navigate("/subscriptions"));
+  };
 
   if (!membership || !userData) {
     return <></>;
@@ -22,7 +35,7 @@ const Home = () => {
       })}
 
       <Button onClick={() => navigate("/subscriptions")}>Mudar plano</Button>
-      <Button>Cancelar plano</Button>
+      <Button onClick={cancelPlan}>Cancelar plano</Button>
     </Container>
   );
 };
